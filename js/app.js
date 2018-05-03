@@ -36,6 +36,7 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 200;
     this.y= 380;
+    this.score = 0;
 }
 
 Player.prototype.update = function() {
@@ -73,9 +74,11 @@ Player.prototype.handleInput = function(keyPressed) {
 
 Player.prototype.reset = function(hasWon) {
     if (hasWon) {
+        player.score++;
         player.x = 200;
         player.y = 380;
     } else {
+        player.score = 0;
         player.x = 200;
         player.y = 380;
     }

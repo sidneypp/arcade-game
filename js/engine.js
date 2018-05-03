@@ -137,6 +137,12 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
+        ctx.font = "bold 30px Arial";
+        ctx.fillStyle = '#fffe2d';
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 2;
+        ctx.fillText(`Score: ${player.score}`, 20, 100);
+        ctx.strokeText(`Score: ${player.score}`, 20, 100);
 
         renderEntities();
     }

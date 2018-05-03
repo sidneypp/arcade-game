@@ -38,8 +38,16 @@ var Player = function() {
     this.y= 380;
 }
 
-Player.prototype.update = function(dt) {
-    
+Player.prototype.update = function() {
+    if (this.x < 0) {
+        this.x = 0;
+    } else if (this.x > 400) {
+        this.x = 400;
+    } else if (this.y < 0) {
+        player.reset(true);
+    } else if (this.y > 380) {
+        this.y = 380;
+    }
 }
 
 Player.prototype.render = function() {
@@ -49,28 +57,19 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(keyPressed) {
     switch (keyPressed) {
         case 'left':
-            if (this.x > 0) {
-                this.x -= 100;
-            }
+            this.x -= 100;
             break;
         case 'up':
-            if (this.y > 0) {
-                this.y -= 83;
-            }
+            this.y -= 83;
             break;
         case 'right':
-            if (this.x < 400) {
-                this.x += 100;
-            }
+            this.x += 100;
             break;
         case 'down':
-            if (this.y < 380) {
             this.y += 83;
-            }
             break;
     }
 }
-
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies

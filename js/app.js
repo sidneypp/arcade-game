@@ -71,6 +71,16 @@ Player.prototype.handleInput = function(keyPressed) {
     }
 }
 
+Player.prototype.reset = function(hasWon) {
+    if (hasWon) {
+        player.x = 200;
+        player.y = 380;
+    } else {
+        player.x = 200;
+        player.y = 380;
+    }
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player

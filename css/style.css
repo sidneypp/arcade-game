@@ -22,12 +22,16 @@ body {
 }
 /* Menu */
 .menu {
-    width: 508px;
+    width: 808px;
     height: 60px;
     margin: 0 auto;
     padding-top: 30px;
     text-align: left;
     font-size: 50px;
+}
+
+.hidden {
+    display: none;
 }
 
 .lives,

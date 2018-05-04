@@ -1,3 +1,13 @@
+let play = false;
+let selectedChar;
+const allSprites = [
+    'images/char-boy.png',
+    'images/char-cat-girl.png',
+    'images/char-horn-girl.png',
+    'images/char-pink-girl.png',
+    'images/char-princess-girl.png'
+];
+
 function shuffleBackground() {
     const body = document.querySelector('body');
     const allBackground = [
@@ -14,6 +24,45 @@ function shuffleBackground() {
 
 shuffleBackground();
 
+var Selector = function() {
+    this.col = 0;
+    this.x = 201;
+    this.y = 80;
+    this.sprite = 'images/Selector.png';
+};
+
+Selector.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Selector.prototype.update = function() {
+    if (this.x < 201) {
+        this.col = 0;
+        this.x = 201;
+    }  else if (this.x > 600) {
+        this.col = 4;
+        this.x = 600;
+    }
+};
+
+Selector.prototype.handleInput = function(keyPressed) {
+    switch (keyPressed) {
+        case 'left':
+            this.col--;
+            this.x -= 100;
+            break;
+        case 'right':
+            this.col++;
+            this.x += 100;
+            break;
+        case 'enter':
+            selectedChar = this.col;
+            player = new Player();
+            play = true;
+            document.querySelector('.hidden').classList.remove('hidden');
+            break;
+    }
+}
 
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
@@ -42,7 +91,7 @@ Enemy.prototype.update = function(dt) {
 };
 
 Enemy.prototype.repeat = function() {
-    if (this.x > 500) {
+    if (this.x > 800) {
         this.x = -100;
     }
 }
@@ -57,11 +106,12 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 
 var Player = function() {
-    this.sprite = 'images/char-boy.png';
-    this.x = 200;
+    this.sprite = allSprites[selectedChar];
+    this.x = 300;
     this.y= 380;
     this.gems = 0;
     this.lives = 3;
+    this.gameOver = false;
 }
 
 Player.prototype.update = function() {
@@ -69,12 +119,18 @@ Player.prototype.update = function() {
     document.querySelector('.gems').innerHTML = this.gems.toString();
     if (this.x < 0) {
         this.x = 0;
-    } else if (this.x > 400) {
-        this.x = 400;
+    } else if (this.x > 700) {
+        this.x = 700;
     } else if (this.y < 0) {
-        player.reset(true);
+        this.reset(true);
     } else if (this.y > 380) {
         this.y = 380;
+    }
+    if (this.lives == 0) {
+        alert ("GAME OVER!");
+        this.reset();
+        this.lives = 3;
+        this.gems = 0;
     }
 }
 
@@ -83,19 +139,21 @@ Player.prototype.render = function() {
 }
 
 Player.prototype.handleInput = function(keyPressed) {
-    switch (keyPressed) {
-        case 'left':
-            this.x -= 100;
-            break;
-        case 'up':
-            this.y -= 83;
-            break;
-        case 'right':
-            this.x += 100;
-            break;
-        case 'down':
-            this.y += 83;
-            break;
+    if (this.gameOver === false) {
+        switch (keyPressed) {
+            case 'left':
+                this.x -= 100;
+                break;
+            case 'up':
+                this.y -= 83;
+                break;
+            case 'right':
+                this.x += 100;
+                break;
+            case 'down':
+                this.y += 83;
+                break;
+        }
     }
 }
 
@@ -105,7 +163,6 @@ Player.prototype.reset = function(hasWon) {
         player.x = 200;
         player.y = 380;
     } else {
-        player.gems = 0;
         player.lives--;
         player.x = 200;
         player.y = 380;
@@ -115,12 +172,22 @@ Player.prototype.reset = function(hasWon) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [
-    new Enemy(0, 48, 200),
-    new Enemy(0, 131, 300),
-    new Enemy(0, 214, 400)
+allEnemies = [
+    new Enemy(-100, 48, 100),
+    new Enemy(-100, 131, 200),
+    new Enemy(-100, 214, 300),
+    new Enemy(-100, 297, 400),
+    new Enemy(-300, 48, 400),
+    new Enemy(-300, 131, 300),
+    new Enemy(-300, 214, 200),
+    new Enemy(-300, 297, 100),
+    new Enemy(-600, 48, 100),
+    new Enemy(-600, 131, 200),
+    new Enemy(-600, 214, 300),
+    new Enemy(-600, 297, 400),
 ];
-let player = new Player();
+selector = new Selector();
+player = new Player();
 
 
 
@@ -128,11 +195,15 @@ let player = new Player();
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
+        13: 'enter',
         37: 'left',
         38: 'up',
         39: 'right',
         40: 'down'
     };
-
-    player.handleInput(allowedKeys[e.keyCode]);
+    if (play === true) {
+        player.handleInput(allowedKeys[e.keyCode]);
+    } else {
+        selector.handleInput(allowedKeys[e.keyCode]);
+    }
 });

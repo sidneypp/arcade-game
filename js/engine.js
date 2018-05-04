@@ -120,7 +120,6 @@ var Engine = (function(global) {
         
         // Before drawing, clear existing canvas
         ctx.clearRect(0,0,canvas.width,canvas.height)
-
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
          * portion of the "grid"
@@ -137,13 +136,6 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-        ctx.font = "bold 30px Arial";
-        ctx.fillStyle = '#fffe2d';
-        ctx.strokeStyle = '#000';
-        ctx.lineWidth = 2;
-        ctx.fillText(`Score: ${player.score}`, 20, 100);
-        ctx.strokeText(`Score: ${player.score}`, 20, 100);
-
         renderEntities();
     }
 

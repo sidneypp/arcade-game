@@ -60,10 +60,13 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 200;
     this.y= 380;
-    this.score = 0;
+    this.gems = 0;
+    this.lives = 3;
 }
 
 Player.prototype.update = function() {
+    document.querySelector('.lives').innerHTML = this.lives.toString();
+    document.querySelector('.gems').innerHTML = this.gems.toString();
     if (this.x < 0) {
         this.x = 0;
     } else if (this.x > 400) {
@@ -98,11 +101,12 @@ Player.prototype.handleInput = function(keyPressed) {
 
 Player.prototype.reset = function(hasWon) {
     if (hasWon) {
-        player.score++;
+        player.gems++;
         player.x = 200;
         player.y = 380;
     } else {
-        player.score = 0;
+        player.gems = 0;
+        player.lives--;
         player.x = 200;
         player.y = 380;
     }

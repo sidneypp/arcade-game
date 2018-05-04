@@ -1,6 +1,12 @@
+* {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
 body {
     text-align: center;
-    background-position: center;
+    font-family: 'Press Start 2P', sans-serif;
+    background-repeat: round;
 }
 .background-1 {
     background-image: url('../images/background-1.png');
@@ -13,4 +19,22 @@ body {
 }
 .background-4 {
     background-image: url('../images/background-4.png');
+}
+/* Menu */
+.menu {
+    width: 508px;
+    height: 60px;
+    margin: 0 auto;
+    padding-top: 30px;
+    text-align: left;
+    font-size: 50px;
+}
+
+.lives,
+.gems {
+    vertical-align: top;
+}
+
+.items {
+    display: inline-block;
 }

@@ -3,6 +3,10 @@
 ## Table of Contents
 
 * [Project Purpose](#project-purpose)
+* [How to Load the Game](#how-to-load-the-game)
+* [How to Play the Game](#how-to-load-the-game)
+* [Screenshots](#screenshots)
+* [Resources used to create the game](#resources-used-to-create-the-game)
 
 ## Project Purpose:
 

@@ -159,13 +159,14 @@ Player.prototype.handleInput = function(keyPressed) {
 
 Player.prototype.reset = function(hasWon) {
     if (hasWon) {
-        player.gems++;
-        player.x = 200;
-        player.y = 380;
+        alert ("CONGRATS! YOU WIN! You have earned 500 gemstones");
+        this.gems += 500;
+        this.x = 200;
+        this.y = 380;
     } else {
-        player.lives--;
-        player.x = 200;
-        player.y = 380;
+        this.lives--;
+        this.x = 200;
+        this.y = 380;
     }
 }
 

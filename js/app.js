@@ -1,3 +1,20 @@
+function shuffleBackground() {
+    const body = document.querySelector('body');
+    const allBackground = [
+        'background-1',
+        'background-2',
+        'background-3',
+        'background-4'
+    ];
+    const currentIndex = allBackground.length
+    const randomIndex = Math.floor(Math.random() * currentIndex);
+    const backgroundSelected = allBackground[randomIndex];
+    return body.classList.add(backgroundSelected);;
+  }
+
+shuffleBackground();
+
+
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,

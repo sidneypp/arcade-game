@@ -79,7 +79,16 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
+    }
+
+    /* This is a function responsible for checking if an enemy collided with 
+     * the player and if positive sends the player to the starting place
+    */
+    function checkCollisions() {
+        if (this.y == player.y && this.x < player.x + 30 && this.x + 60 > player.x) {
+            player.reset(false);
+        }
     }
 
     /* This is called by the update function and loops through all of the

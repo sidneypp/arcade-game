@@ -86,9 +86,11 @@ var Engine = (function(global) {
      * the player and if positive sends the player to the starting place
     */
     function checkCollisions() {
-        if (this.y == player.y && this.x < player.x + 30 && this.x + 60 > player.x) {
-            player.reset(false);
-        }
+        allEnemies.forEach(enemy => {
+            if (enemy.y == player.y && enemy.x < player.x + 30 && enemy.x + 60 > player.x) {
+                player.reset(false);
+            }
+        })
     }
 
     /* This is called by the update function and loops through all of the

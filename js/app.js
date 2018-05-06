@@ -63,7 +63,6 @@ class Selector extends Character {
                 this.x += 100;
                 break;
             case 'enter':
-                debugger
                 selectedChar = this.col;
                 player = new Player();
                 play = true;
@@ -88,9 +87,6 @@ class Enemy extends Character {
         // all computers.
         this.x += this.speed * dt;
         this.repeat();
-        if (this.y == player.y && this.x < player.x + 30 && this.x + 60 > player.x) {
-            player.reset(false);
-        }
     }
 
     repeat() {
@@ -183,8 +179,6 @@ allEnemies = [
 ];
 selector = new Selector();
 player = new Player();
-
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

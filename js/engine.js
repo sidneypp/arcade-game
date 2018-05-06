@@ -80,9 +80,11 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         checkCollisions();
+        checkLives();
     }
 
-    /* This is a function responsible for checking if an enemy collided with 
+    /**
+     * This is a function responsible for checking if an enemy collided with 
      * the player and if positive sends the player to the starting place
     */
     function checkCollisions() {
@@ -93,6 +95,19 @@ var Engine = (function(global) {
         })
     }
 
+    /**
+     * This is a function that verifies the amount of lives of the player 
+     * and if it has reached zero, it shows "GAME OVER!" and reset the game
+     */
+    function checkLives() {
+        if (player.lives == 0) {
+            alert ("GAME OVER!");
+            player.reset();
+            player.lives = 3;
+            player.gems = 0;
+        }
+    }
+
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
      * their update() methods. It will then call the update function for your
@@ -101,7 +116,7 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        if (play === true) {
+        if (selector.play === true) {
             allEnemies.forEach(function(enemy) {
                 enemy.update(dt);
             });
@@ -118,7 +133,7 @@ var Engine = (function(global) {
      * they are just drawing the entire screen over and over.
      */
     function render() {
-        if (play === true) {
+        if (selector.play === true) {
             /* This array holds the relative URL to the image used
             * for that particular row of the game level.
             */
@@ -162,13 +177,13 @@ var Engine = (function(global) {
             ctx.lineWidth = 1;
             ctx.strokeText("Choose your Player. Press Enter to Start Game", 101, 100);
 
-            const numCharacters = allSprites.length;
+            const numCharacters = selector.allSprites.length;
             for (col = 0; col < numCharacters; col++) {
                 ctx.drawImage(Resources.get("images/stone-block.png"), 201 + col * 101, 120);
             }
             selector.render();
             for (var i = 0; i < numCharacters; i++) {
-                ctx.drawImage(Resources.get(allSprites[i]), 201 + i * 101, 86); //34 diff.
+                ctx.drawImage(Resources.get(selector.allSprites[i]), 201 + i * 101, 86); //34 diff.
             }
         }
     }
@@ -184,7 +199,6 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-
         player.render();
     }
 
